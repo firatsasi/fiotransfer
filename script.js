@@ -19,8 +19,31 @@ function closeMobileMenu() {
 document.addEventListener('DOMContentLoaded', function () {
   const hamburger = document.querySelector('.hamburger');
   const closeBtn = document.querySelector('.mobile-close');
-  if (hamburger) hamburger.addEventListener('click', openMobileMenu);
-  if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
+
+  console.log('Hamburger button found:', hamburger);
+  console.log('Close button found:', closeBtn);
+
+  if (hamburger) {
+    hamburger.addEventListener('click', function (e) {
+      e.preventDefault();
+      openMobileMenu();
+    });
+    hamburger.addEventListener('touchend', function (e) {
+      e.preventDefault();
+      openMobileMenu();
+    }, { passive: false });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
+    closeBtn.addEventListener('touchend', function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+    }, { passive: false });
+  }
 });
 
 // ===================== SCROLL REVEAL =====================
