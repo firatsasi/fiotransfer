@@ -169,6 +169,7 @@ img { display: block; width: 100%; object-fit: cover; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .nav-logo {
@@ -227,9 +228,17 @@ img { display: block; width: 100%; object-fit: cover; }
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  padding: 4px;
+  padding: 10px;
   position: relative;
-  z-index: 1001;
+  z-index: 1002;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hamburger span {
@@ -268,14 +277,21 @@ img { display: block; width: 100%; object-fit: cover; }
 
 .mobile-close {
   position: absolute;
-  top: 28px;
-  right: 32px;
+  top: 20px;
+  right: 24px;
   background: none;
   border: none;
   cursor: pointer;
   color: var(--gold);
   font-size: 28px;
   font-family: 'Jost', sans-serif;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ===================== HERO ===================== */
@@ -1395,12 +1411,25 @@ footer {
   .services-grid { grid-template-columns: 1fr; }
   .nav-menu, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .fleet-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 180px); gap: 2px; }
+  /* Fleet gallery: 2 columns, auto rows so images don't overflow */
+  .fleet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 160px);
+    gap: 2px;
+    overflow: hidden;
+  }
+  .fleet-item { overflow: hidden; }
+  .fleet-item img { width: 100%; height: 100%; object-fit: cover; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .fleet-header { flex-direction: column; align-items: flex-start; }
   .form-row { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; }
   .footer-bottom { flex-direction: column; text-align: center; }
+  /* Hero background centered on mobile */
+  .hero-bg { background-position: center center; }
+  /* Text overflow prevention */
+  h1, h2, h3, h4 { overflow-wrap: break-word; word-break: break-word; }
+  .hero-title, .section-title { max-width: 100%; }
   /* About page */
   #story, #why, #languages, #cta { padding: 80px 0; }
   .fleet-cards { grid-template-columns: 1fr; }
@@ -1417,9 +1446,26 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .fleet-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 180px); gap: 2px; }
-  .hero-title { font-size: 38px; }
+  .container { padding: 0 16px; }
+  /* Fleet: 2 columns, shorter rows on small screens */
+  .fleet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 130px);
+    gap: 2px;
+    overflow: hidden;
+  }
+  .hero-title { font-size: 36px; overflow-wrap: break-word; word-break: break-word; }
+  .hero-sub { font-size: 14px; }
+  .hero-content { padding: 0 16px; }
+  /* Prevent any text overflow on very small screens */
+  body { overflow-x: hidden; }
+  * { max-width: 100%; }
+  img { max-width: 100%; }
+  .section-title { font-size: clamp(28px, 8vw, 42px); }
   /* About page */
   .why-grid { grid-template-columns: 1fr; }
   .lang-list { gap: 32px; }
+  /* Buttons stack on very small screens */
+  .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+  .btn { width: 100%; justify-content: center; }
 }
