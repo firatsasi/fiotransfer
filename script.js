@@ -8,6 +8,10 @@ if (navbar) {
 
 // ===================== MOBILE MENU =====================
 document.addEventListener('DOMContentLoaded', function () {
+  console.log('Script loaded');
+  console.log('Hamburger found:', document.querySelector('.hamburger'));
+  console.log('Menu found:', document.getElementById('mobileMenu'));
+
   const hamburger = document.querySelector('.hamburger');
   const menu = document.getElementById('mobileMenu');
   const closeBtn = document.querySelector('.mobile-close');
