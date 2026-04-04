@@ -7,43 +7,47 @@ if (navbar) {
 }
 
 // ===================== MOBILE MENU =====================
-function openMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) { menu.classList.add('open'); document.body.style.overflow = 'hidden'; }
-}
-function closeMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) { menu.classList.remove('open'); document.body.style.overflow = ''; }
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   const hamburger = document.querySelector('.hamburger');
+  const menu = document.getElementById('mobileMenu');
   const closeBtn = document.querySelector('.mobile-close');
 
-  console.log('Hamburger button found:', hamburger);
-  console.log('Close button found:', closeBtn);
+  if (!hamburger || !menu) return;
 
-  if (hamburger) {
-    hamburger.addEventListener('click', function (e) {
-      e.preventDefault();
-      openMobileMenu();
-    });
-    hamburger.addEventListener('touchend', function (e) {
-      e.preventDefault();
-      openMobileMenu();
-    }, { passive: false });
+  function openMenu() {
+    menu.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
+
+  function closeMenu() {
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function toggleMenu(e) {
+    e.preventDefault();
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('touchstart', toggleMenu, { passive: false });
 
   if (closeBtn) {
-    closeBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      closeMobileMenu();
-    });
-    closeBtn.addEventListener('touchend', function (e) {
-      e.preventDefault();
-      closeMobileMenu();
-    }, { passive: false });
+    closeBtn.addEventListener('click', closeMenu);
+    closeBtn.addEventListener('touchstart', function (e) { e.preventDefault(); closeMenu(); }, { passive: false });
   }
+
+  // Close on nav link click
+  menu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close when clicking outside the menu
+  document.addEventListener('click', function (e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+      closeMenu();
+    }
+  });
 });
 
 // ===================== SCROLL REVEAL =====================
