@@ -262,7 +262,10 @@ img { display: block; width: 100%; object-fit: cover; }
   gap: 36px;
 }
 
-.mobile-menu.open { display: flex; }
+.mobile-menu.open {
+  display: flex;
+  pointer-events: all;
+}
 
 .mobile-menu a {
   font-family: 'Cormorant Garamond', serif;
@@ -271,6 +274,10 @@ img { display: block; width: 100%; object-fit: cover; }
   letter-spacing: 0.1em;
   color: var(--text);
   transition: color 0.3s;
+  position: relative;
+  z-index: 1101;
+  padding: 20px;
+  pointer-events: all;
 }
 
 .mobile-menu a:hover { color: var(--gold); }
