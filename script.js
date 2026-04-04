@@ -8,48 +8,24 @@ if (navbar) {
 
 // ===================== MOBILE MENU =====================
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('Script loaded');
-  console.log('Hamburger found:', document.querySelector('.hamburger'));
-  console.log('Menu found:', document.getElementById('mobileMenu'));
-
   const hamburger = document.querySelector('.hamburger');
-  const menu = document.getElementById('mobileMenu');
-  const closeBtn = document.querySelector('.mobile-close');
+  const navbar = document.getElementById('navbar');
 
-  if (!hamburger || !menu) return;
+  if (!hamburger || !navbar) return;
 
-  function openMenu() {
-    menu.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    menu.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function toggleMenu(e) {
-    e.preventDefault();
-    menu.classList.contains('open') ? closeMenu() : openMenu();
-  }
-
-  hamburger.addEventListener('click', toggleMenu);
-  hamburger.addEventListener('touchstart', toggleMenu, { passive: false });
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeMenu);
-    closeBtn.addEventListener('touchstart', function (e) { e.preventDefault(); closeMenu(); }, { passive: false });
-  }
-
-  // Close on nav link click
-  menu.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
+  hamburger.addEventListener('click', function () {
+    navbar.classList.toggle('menu-open');
   });
 
-  // Close when clicking outside the menu
+  navbar.querySelectorAll('.mobile-dropdown a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      navbar.classList.remove('menu-open');
+    });
+  });
+
   document.addEventListener('click', function (e) {
-    if (menu.classList.contains('open') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
-      closeMenu();
+    if (navbar.classList.contains('menu-open') && !navbar.contains(e.target)) {
+      navbar.classList.remove('menu-open');
     }
   });
 });
